@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kopi Kopen — Kedai kopi premium dari petani lokal Nusantara" />
+  <title>Kopi Kopen — Kedai Kopi Nusantara</title>
+
+  <!--
+    ============================================================
+    FONT: Poppins (body) + Playfair Display (heading dekoratif)
+    Sumber: Google Fonts
+    ============================================================
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet utama -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       LOADING SCREEN
+       Tampil saat halaman pertama kali dibuka, hilang otomatis
+       setelah semua aset selesai dimuat (window.load)
+  ============================================================ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <!-- Animasi cangkir kopi menggunakan CSS murni -->
+      <div class="loader-cup">
+        <div class="loader-liquid"></div>
+        <!-- Tiga animasi uap steam -->
+        <div class="loader-steam s1"></div>
+        <div class="loader-steam s2"></div>
+        <div class="loader-steam s3"></div>
+      </div>
+      <p class="loader-brand">Kopi <em>Kopen</em></p>
+      <!-- Progress bar yang terisi seiring loading -->
+      <div class="loader-bar-track"><div class="loader-bar" id="loaderBar"></div></div>
+      <p class="loader-tagline">Menyeduh yang terbaik untuk Anda…</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR — Sticky, transparan di hero, solid saat scroll
+       Mengandung: Logo + nama kedai, link navigasi, tombol CTA,
+                  hamburger untuk mobile
+  ============================================================ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi Utama">
+    <div class="nav-inner">
+
+      <!-- LOGO + NAMA KEDAI
+           ► Ganti src="assets/logo.png" dengan file logo Anda
+           ► Jika belum punya logo, placeholder kotak hijau akan muncul -->
+      <a href="#home" class="nav-logo" aria-label="Kopi Kopen - Beranda">
+        <!-- ★ SLOT LOGO — ganti src dengan path logo Anda ★ -->
+        <div class="logo-img-wrap">
+          <img src="logo_kopi_potong-removebg-preview.png"
+               alt="Logo Kopi Kopen"
+               class="logo-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <!-- Fallback placeholder bila file logo belum ada -->
+          <div class="logo-placeholder" aria-hidden="true">☕</div>
+        </div>
+        <span class="logo-name">Kopi <em>Kopen</em></span>
+      </a>
+
+      <!-- LINK NAVIGASI DESKTOP
+           href="#id" → smooth-scroll ke section dengan id tersebut -->
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#home"       class="nav-link active">Home</a></li>
+        <li><a href="#tentang"    class="nav-link">Tentang</a></li>
+        <li><a href="#produk"     class="nav-link">Produk</a></li>
+        <li><a href="#galeri"     class="nav-link">Menu</a></li>
+        <li><a href="#harga"      class="nav-link">Harga</a></li>
+        <li><a href="#penghargaan" class="nav-link">Penghargaan</a></li>
+        <li><a href="#kontak"     class="nav-link">Kontak</a></li>
+      </ul>
+
+      <!-- TOMBOL CTA NAVBAR + HAMBURGER MOBILE -->
+      <div class="nav-right">
+        <!-- Tombol "Pesan Kopi" → buka WhatsApp langsung -->
+        <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20kopi."
+           target="_blank" rel="noopener" class="btn btn-nav-cta">
+          Pesan Kopi
+        </a>
+        <!-- Hamburger — hanya tampil di mobile (≤768px) -->
+        <button class="hamburger" id="hamburger"
+                aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+          <span class="ham-bar bar1"></span>
+          <span class="ham-bar bar2"></span>
+          <span class="ham-bar bar3"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Overlay gelap di belakang mobile menu -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+
+  <!-- ============================================================
+       HERO SECTION — Full-screen slideshow dengan Ken Burns effect
+       4 foto background berganti otomatis setiap 5 detik
+  ============================================================ -->
+  <section class="hero" id="home" aria-label="Beranda">
+
+    <!-- SLIDE BACKGROUNDS
+         Tambah / ganti URL foto sesuka hati
+         Format: background-image via CSS variable --bg -->
+    <div class="slides-container" id="slidesContainer" aria-hidden="true">
+      <div class="slide active" style="--bg:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&q=85&auto=format&fit=crop')"></div>
+      <div class="slide"        style="--bg:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&q=85&auto=format&fit=crop')"></div>
+      <div class="slide"        style="--bg:url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920&q=85&auto=format&fit=crop')"></div>
+      <div class="slide"        style="--bg:url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&q=85&auto=format&fit=crop')"></div>
+    </div>
+
+    <!-- Gradient overlay supaya teks terbaca di atas foto -->
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <!-- KONTEN HERO (tengah layar) -->
+    <div class="hero-body">
+      <div class="hero-inner">
+
+        <!-- Badge kecil di atas judul -->
+        <div class="hero-tag animate-up delay-1">
+          <span class="tag-dot"></span> Kopi Pilihan Nusantara
+        </div>
+
+        <!-- HEADLINE — berubah tiap slide (4 versi) -->
+        <div class="hero-titles" id="heroTitles">
+          <div class="hero-title active">
+            <h1>Setiap Tegukan<br /><em>Bercerita</em></h1>
+            <p>Nikmati cita rasa kopi premium dari biji-biji terbaik petani lokal Indonesia, disajikan hangat untuk Anda.</p>
+          </div>
+          <div class="hero-title">
+            <h1>Seni dalam<br /><em>Setiap Cangkir</em></h1>
+            <p>Barista bersertifikat kami menuangkan keahlian dan passion ke dalam setiap sajian yang Anda nikmati.</p>
+          </div>
+          <div class="hero-title">
+            <h1>Dari Tangan<br /><em>Petani Lokal</em></h1>
+            <p>Kopi kami hadir langsung dari kebun terbaik di Aceh, Flores, dan Toraja — segar dipetik setiap hari.</p>
+          </div>
+          <div class="hero-title">
+            <h1>Kopi yang<br /><em>Menginspirasi</em></h1>
+            <p>Biji kopi pilihan, diroasting sempurna setiap pagi untuk menghadirkan kompleksitas rasa yang tak terlupakan.</p>
+          </div>
+        </div>
+
+        <!-- Tombol aksi hero -->
+        <div class="hero-btns animate-up delay-3">
+          <!-- Pesan via WhatsApp langsung -->
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20kopi.%20Boleh%20minta%20info%20menu%3F"
+             target="_blank" rel="noopener" class="btn btn-hero-solid">
+            Pesan Sekarang
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+          <a href="#tentang" class="btn btn-hero-outline">Kenali Kami</a>
+        </div>
+
+        <!-- SLIDE NAVIGATOR — prev | dots | next -->
+      <div class="slide-nav animate-up delay-4">
+        <button class="snav-btn" id="slidePrev" aria-label="Slide sebelumnya">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18 9 12l6-6"/></svg>
+        </button>
+        <div class="slide-dots" id="slideDots" role="tablist">
+          <button class="sdot active" role="tab" aria-selected="true"  data-i="0" aria-label="Slide 1"></button>
+          <button class="sdot"        role="tab" aria-selected="false" data-i="1" aria-label="Slide 2"></button>
+          <button class="sdot"        role="tab" aria-selected="false" data-i="2" aria-label="Slide 3"></button>
+          <button class="sdot"        role="tab" aria-selected="false" data-i="3" aria-label="Slide 4"></button>
+        </div>
+        <button class="snav-btn" id="slideNext" aria-label="Slide berikutnya">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+        <!-- Progress bar autoplay (terisi tiap 5 detik) -->
+        <div class="slide-progress" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS RIBBON di bawah hero -->
+    <div class="hero-stats" aria-label="Statistik singkat">
+      <div class="hstat"><strong>5.000+</strong><span>Pelanggan Setia</span></div>
+      <div class="hstat-div" aria-hidden="true"></div>
+      <div class="hstat"><strong>35+</strong><span>Varian Menu</span></div>
+      <div class="hstat-div" aria-hidden="true"></div>
+      <div class="hstat"><strong>4</strong><span>Cabang Aktif</span></div>
+      <div class="hstat-div" aria-hidden="true"></div>
+      <div class="hstat"><strong>Est. 2014</strong><span>Melayani Anda</span></div>
+    </div>
+
+    <!-- Indikator scroll -->
+    <div class="scroll-cue" aria-hidden="true">
+      <div class="scroll-cue-mouse"><div class="scroll-cue-wheel"></div></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       TENTANG — Kisah & foto kolase kedai
+  ============================================================ -->
+  <section class="section tentang" id="tentang" aria-labelledby="ttl-tentang">
+    <div class="container">
+      <div class="tentang-grid">
+
+        <!-- FOTO KOLASE (3 foto) -->
+        <div class="tentang-photos reveal" data-dir="left">
+          <!-- Foto utama besar — ganti src bila ada foto sendiri -->
+          <figure class="tp-main">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80&auto=format&fit=crop"
+                 alt="Interior suasana kedai Kopi Kopen" loading="lazy" />
+          </figure>
+          <!-- Foto barista kecil kiri -->
+          <figure class="tp-sm1">
+            <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=400&q=80&auto=format&fit=crop"
+                 alt="Barista Kopi Kopen" loading="lazy" />
+          </figure>
+          <!-- Foto latte art kecil kanan -->
+          <figure class="tp-sm2">
+            <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&q=80&auto=format&fit=crop"
+                 alt="Latte art Kopi Kopen" loading="lazy" />
+          </figure>
+          <!-- Badge "Est. 2018" melayang -->
+          <div class="est-badge" aria-hidden="true">
+            <span class="est-lbl">Est.</span>
+            <span class="est-yr">2018</span>
+          </div>
+          <!-- Badge penghargaan melayang -->
+          <div class="award-badge">
+            <span aria-hidden="true">🏆</span>
+            <div>
+              <strong>Best Coffee</strong>
+              <small>Jatim 2023</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEKS TENTANG -->
+        <div class="tentang-text reveal" data-dir="right">
+          <span class="section-pill">Tentang Kami</span>
+          <h2 class="section-heading" id="ttl-tentang">
+            Lahir dari <em>Cinta</em><br />untuk Kopi Lokal
+          </h2>
+          <p class="tentang-lead">
+            Kopi Kopen dimulai dari sebuah garasi kecil di Sidoarjo pada 2018.
+            Berawal dari kecintaan mendalam terhadap kopi lokal Indonesia, kami
+            berkomitmen menghadirkan pengalaman ngopi yang berbeda — bukan sekadar
+            minuman, tapi sebuah perjalanan rasa.
+          </p>
+          <p class="tentang-body">
+            Kami bekerja langsung bersama petani kopi di Aceh, Flores, dan Toraja untuk
+            memastikan setiap biji dipetik penuh kasih, diproses teliti, dan disajikan
+            dengan standar tertinggi.
+          </p>
+
+          <!-- Daftar keunggulan singkat — ikon menggunakan SVG inline -->
+          <ul class="feature-list">
+            <li class="feature-item">
+              <!-- Ikon daun/petani -->
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#E8F5E9"/>
+                  <path d="M32 12C32 12 20 14 16 24C12 34 20 38 20 38C20 38 18 30 24 26C24 26 22 32 26 34C26 34 28 26 32 20C32 20 30 28 34 30C34 30 38 20 32 12Z" fill="#2E7D32" stroke="#1B5E20" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M20 38C20 38 22 32 18 30" stroke="#1B5E20" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <strong>Sumber Langsung dari Petani</strong>
+                <span>Mendukung petani lokal dengan harga yang adil</span>
+              </div>
+            </li>
+            <li class="feature-item">
+              <!-- Ikon api/roasting -->
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#FFF3E0"/>
+                  <path d="M24 36C24 36 14 30 14 22C14 16 18 12 24 12C24 12 22 18 26 20C26 20 24 16 28 16C28 16 34 20 30 28C30 28 28 24 26 24C26 24 30 30 24 36Z" fill="#E65100" stroke="#BF360C" stroke-width="1.2" stroke-linejoin="round"/>
+                  <path d="M24 36C24 36 18 31 20 27C20 27 22 30 24 30C24 30 26 28 24 24C24 24 28 27 24 36Z" fill="#FF8F00"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <strong>Roasting Fresh Setiap Hari</strong>
+                <span>Kopi selalu segar, tidak pernah stok lama</span>
+              </div>
+            </li>
+            <li class="feature-item">
+              <!-- Ikon sertifikat/barista -->
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#E8F5E9"/>
+                  <rect x="11" y="13" width="26" height="18" rx="2.5" fill="#fff" stroke="#2E7D32" stroke-width="1.5"/>
+                  <path d="M16 20h16M16 24h10" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="24" cy="35" r="4" fill="#fff" stroke="#2E7D32" stroke-width="1.5"/>
+                  <path d="M21 38.5l-2 2.5M27 38.5l2 2.5" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M22 35l1.5 1.5 3-3" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="feature-text">
+                <strong>Barista Bersertifikat SCAI</strong>
+                <span>Standar internasional, sentuhan lokal</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       KEUNGGULAN — 6 kartu keunggulan layanan
+  ============================================================ -->
+  <section class="section keunggulan" id="produk" aria-labelledby="ttl-keunggulan">
+    <div class="container">
+      <header class="section-header reveal" data-dir="up">
+        <span class="section-pill">Mengapa Kami?</span>
+        <h2 class="section-heading" id="ttl-keunggulan">Keunggulan <em>Kopi Kopen</em></h2>
+        <p class="section-sub">Setiap detail dirancang untuk pengalaman terbaik Anda</p>
+      </header>
+
+      <!-- Grid 3 kolom desktop, 2 tablet, 1 mobile -->
+      <div class="cards-grid">
+        <!-- Setiap kartu: --i digunakan untuk stagger animasi -->
+        <article class="kcard reveal" data-dir="up" style="--i:0">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon biji kopi -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <ellipse cx="20" cy="20" rx="10" ry="14" fill="#6D4C41" stroke="#4E342E" stroke-width="1.5"/>
+              <path d="M20 7C20 7 20 33 20 33" stroke="#D7CCC8" stroke-width="1.5" stroke-linecap="round"/>
+              <ellipse cx="20" cy="20" rx="10" ry="14" fill="none" stroke="#4E342E" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Biji Kopi Pilihan</h3>
+          <p>Arabika & Robusta grade A dari perkebunan bersertifikat di seluruh Nusantara.</p>
+          <span class="kcard-badge">Premium Quality</span>
+        </article>
+
+        <article class="kcard reveal" data-dir="up" style="--i:1">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon topi koki/barista -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <circle cx="20" cy="14" r="7" fill="#fff" stroke="#1B5E20" stroke-width="1.5"/>
+              <path d="M13 14h14v4a7 7 0 01-14 0v-4z" fill="#E8F5E9" stroke="#1B5E20" stroke-width="1.5"/>
+              <rect x="12" y="29" width="16" height="4" rx="2" fill="#1B5E20"/>
+            </svg>
+          </div>
+          <h3>Barista Profesional</h3>
+          <p>5+ tahun pengalaman, tersertifikasi Specialty Coffee Association Indonesia.</p>
+          <span class="kcard-badge">Expert Team</span>
+        </article>
+
+        <article class="kcard reveal" data-dir="up" style="--i:2">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon rumah/kedai -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <path d="M5 18L20 7l15 11v15H5V18z" fill="#E8F5E9" stroke="#1B5E20" stroke-width="1.5" stroke-linejoin="round"/>
+              <rect x="14" y="24" width="12" height="9" rx="1.5" fill="#A5D6A7" stroke="#1B5E20" stroke-width="1.2"/>
+              <rect x="16" y="19" width="4" height="4" rx="1" fill="#fff" stroke="#1B5E20" stroke-width="1"/>
+              <rect x="22" y="19" width="4" height="4" rx="1" fill="#fff" stroke="#1B5E20" stroke-width="1"/>
+            </svg>
+          </div>
+          <h3>Tempat Nyaman</h3>
+          <p>Interior industrial-natural yang hangat, cocok untuk kerja, santai, atau meeting.</p>
+          <span class="kcard-badge">Cozy Space</span>
+        </article>
+
+        <article class="kcard reveal" data-dir="up" style="--i:3">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon WiFi -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <path d="M7 17C12.5 11.5 27.5 11.5 33 17" stroke="#1B5E20" stroke-width="2" stroke-linecap="round"/>
+              <path d="M11 21.5C15 17.5 25 17.5 29 21.5" stroke="#2E7D32" stroke-width="2" stroke-linecap="round"/>
+              <path d="M15 26C17.5 23.5 22.5 23.5 25 26" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="30" r="2" fill="#1B5E20"/>
+            </svg>
+          </div>
+          <h3>WiFi Super Cepat</h3>
+          <p>Internet dedicated 100Mbps tanpa batas waktu untuk remote working Anda.</p>
+          <span class="kcard-badge">100 Mbps</span>
+        </article>
+
+        <article class="kcard reveal" data-dir="up" style="--i:4">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon daun eco -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <path d="M20 34C20 34 10 28 10 18C10 10 16 6 24 8C30 10 34 16 30 24C27 30 20 34 20 34Z" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M20 34C20 34 16 26 14 22" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M20 34C20 34 22 24 28 18" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 2"/>
+              <circle cx="26" cy="14" r="3" fill="#4CAF50" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3>Eco Friendly</h3>
+          <p>Kemasan biodegradable dan sedotan bambu sebagai komitmen kami terhadap bumi.</p>
+          <span class="kcard-badge">Go Green</span>
+        </article>
+
+        <article class="kcard reveal" data-dir="up" style="--i:5">
+          <div class="kcard-icon-wrap" aria-hidden="true">
+            <!-- Ikon smartphone/order -->
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <rect x="11" y="5" width="18" height="30" rx="3" fill="#E8F5E9" stroke="#1B5E20" stroke-width="1.5"/>
+              <circle cx="20" cy="31" r="1.5" fill="#1B5E20"/>
+              <line x1="17" y1="9" x2="23" y2="9" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 18l3 3 6-6" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Pre-Order Online</h3>
+          <p>Pesan via WhatsApp, kopi siap tersaji saat Anda tiba. Anti antri!</p>
+          <span class="kcard-badge">Fast Service</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       GALERI / MENU — Carousel foto produk yang bisa di-drag
+       Klik kartu → buka modal detail + tombol pesan WA
+  ============================================================ -->
+  <section class="section galeri" id="galeri" aria-labelledby="ttl-galeri">
+    <div class="container">
+      <header class="section-header reveal" data-dir="up">
+        <span class="section-pill">Menu Kami</span>
+        <h2 class="section-heading" id="ttl-galeri">Sajian <em>Terbaik</em> Kami</h2>
+        <p class="section-sub">Klik foto untuk melihat detail dan langsung memesan lewat WhatsApp</p>
+      </header>
+    </div>
+
+    <!-- Carousel full-width (overflow tersembunyi di viewport) -->
+
+    <!-- FILTER KATEGORI MENU -->
+    <div class="menu-filter reveal" data-dir="up" style="max-width: 1160px; margin: 0 auto 1.5rem; padding: 0 1.5rem;">
+      <button class="filter-btn active" data-filter="all">🍽️ Semua Menu</button>
+      <button class="filter-btn" data-filter="coffee">☕ Kopi</button>
+      <button class="filter-btn" data-filter="non-coffee">🍵 Non Coffee</button>
+      <button class="filter-btn" data-filter="milkshake">🥤 Milkshake</button>
+      <button class="filter-btn" data-filter="cookies-cream">🍪 Cookies & Cream</button>
+      <button class="filter-btn" data-filter="snack">🍟 Snack</button>
+      <button class="filter-btn" data-filter="food">🍚 Food</button>
+    </div>
+
+    <div class="carousel-wrap">
+
+      <!-- Viewport carousel (tempat scroll/drag) -->
+      <div class="carousel-viewport" id="carViewport">
+        <!-- Track = strip panjang berisi semua kartu -->
+        <div class="carousel-track" id="carTrack">
+
+          <!--
+            ★ KARTU MENU — Cara mengganti gambar:
+               1. Ganti URL di <img src="..."> dengan foto menu Anda
+               2. Atau gunakan file lokal: src="assets/menu/espresso.jpg"
+               3. data-img di <article> = foto besar yang muncul di modal
+          -->
+
+         <div class="carousel-track" id="carTrack">
+
+          <!-- ========== ☕ KOPI ========== -->
+          
+          <!-- ── KARTU 1: Espresso ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Espresso Classico - Rp 22.000"
+            data-name="Espresso Classico"
+            data-price="Rp 22.000"
+            data-rating="4.9"
+            data-badge="☕ Hot"
+            data-desc="Single origin Arabika pilihan dari Aceh Tengah. Profil rasa dark chocolate, brown sugar, dan sedikit citrus. Disajikan dalam 30ml shot sempurna yang bold dan berkarakter."
+            data-img="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80" alt="Espresso" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">☕ Hot</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Espresso Classico</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Single origin Arabika Aceh Tengah</p>
+              <span class="mc-price">Rp 22.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 2: Creamy Latte ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Creamy Latte - Rp 32.000"
+            data-name="Creamy Latte"
+            data-price="Rp 32.000"
+            data-rating="4.8"
+            data-badge="🥛 Susu Oat"
+            data-desc="Espresso double shot dipadukan dengan susu oat premium yang creamy. Menghasilkan rasa balanced sempurna antara kopi dan susu, dengan latte art cantik di atasnya."
+            data-img="xIyQ6euuaBji4njVI1upgzN09EERF1vz4iuqezF8.webp">
+            <div class="mc-img">
+              <img src="xIyQ6euuaBji4njVI1upgzN09EERF1vz4iuqezF8.webp" alt="Creamy Latte" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🥛 Susu Oat</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Creamy Latte</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Espresso double shot + susu oat premium</p>
+              <span class="mc-price">Rp 32.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 3: Iced Brown Sugar ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Iced Brown Sugar - Rp 35.000"
+            data-name="Iced Brown Sugar"
+            data-price="Rp 35.000"
+            data-rating="4.9"
+            data-badge="🧊 Iced"
+            data-desc="Favorit pelanggan! Espresso segar disiram di atas es batu dan susu dingin dengan karamel brown sugar buatan sendiri. Segar, manis, dan sangat memanjakan."
+            data-img="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&q=80" alt="Iced Brown Sugar" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🧊 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Iced Brown Sugar</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Espresso + brown sugar homemade + susu</p>
+              <span class="mc-price">Rp 35.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 4: Cappuccino ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Cappuccino Klasik - Rp 28.000"
+            data-name="Cappuccino Klasik"
+            data-price="Rp 28.000"
+            data-rating="4.8"
+            data-badge="☕ Classic"
+            data-desc="Cappuccino klasik rasio 1:1:1 espresso, susu panas, dan foam tebal sempurna. Disajikan dalam cangkir keramik hangat dengan taburan bubuk cokelat premium."
+            data-img="creamy-latte-with-intricate-art-paired-with-chocolate-chip-cookies-on-wooden-tray-perfect-for-cafes-food-blogs-snack-menus-cozy-atmospheres-and-coffee-enthusiasts-photo.jpg">
+            <div class="mc-img">
+              <img src="creamy-latte-with-intricate-art-paired-with-chocolate-chip-cookies-on-wooden-tray-perfect-for-cafes-food-blogs-snack-menus-cozy-atmospheres-and-coffee-enthusiasts-photo.jpg" alt="Cappuccino" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">☕ Classic</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Cappuccino Klasik</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Espresso + steamed milk + foam tebal</p>
+              <span class="mc-price">Rp 28.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 5: Pour Over ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Pour Over Spesial - Rp 42.000"
+            data-name="Pour Over Spesial"
+            data-price="Rp 42.000"
+            data-rating="5.0"
+            data-badge="🫖 Manual Brew"
+            data-desc="Diseduh manual dengan pour over menggunakan biji single origin terpilih. Proses 4 menit ini menghasilkan secangkir kopi yang bersih, bright, dan penuh nuansa rasa kompleks."
+            data-img="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&q=80" alt="Pour Over" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🫖 Manual Brew</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Pour Over Spesial</h4><span class="mc-star">⭐ 5.0</span></div>
+              <p>Manual brew single origin pilihan barista</p>
+              <span class="mc-price">Rp 42.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 6: Cold Brew ── -->
+          <article class="menu-card" data-category="coffee" role="button" tabindex="0"
+            aria-label="Cold Brew 12hr - Rp 40.000"
+            data-name="Cold Brew 12hr"
+            data-price="Rp 40.000"
+            data-rating="4.9"
+            data-badge="❄️ Cold Brew"
+            data-desc="Arabika pilihan diseduh dingin selama 12 jam penuh dengan air es murni. Rasa yang sangat smooth, rendah asam, dengan natural sweetness yang intens dan menyegarkan."
+            data-img="cold brew.webp">
+            <div class="mc-img">
+              <img src="cold brew.webp" alt="Cold Brew" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">❄️ Cold Brew</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Cold Brew 12hr</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Diseduh dingin 12 jam, smooth dan bold</p>
+              <span class="mc-price">Rp 40.000</span>
+            </div>
+          </article>
+
+          <!-- ========== 🍵 NON COFFEE ========== -->
+
+          <!-- ── KARTU 7: Lemon Tea ── -->
+          <article class="menu-card" data-category="non-coffee" role="button" tabindex="0"
+            aria-label="Lemon Tea - Rp 8.000"
+            data-name="Lemon Tea"
+            data-price="Rp 8.000"
+            data-rating="4.7"
+            data-badge="🍋 Iced"
+            data-desc="Teh segar dengan perasan lemon asli, manis & menyegarkan. Cocok untuk menemani santai Anda."
+            data-img="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80" alt="Lemon Tea" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍋 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Lemon Tea</h4><span class="mc-star">⭐ 4.7</span></div>
+              <p>Teh + perasan lemon asli</p>
+              <span class="mc-price">Rp 8.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 8: Milk Tea ── -->
+          <article class="menu-card" data-category="non-coffee" role="button" tabindex="0"
+            aria-label="Milk Tea - Rp 10.000"
+            data-name="Milk Tea"
+            data-price="Rp 10.000"
+            data-rating="4.8"
+            data-badge="🧋 Iced"
+            data-desc="Teh hitam + susu kental manis, creamy & nikmat. Minuman favorit semua kalangan."
+            data-img="milk tea.jpg">
+            <div class="mc-img">
+              <img src="milk tea.jpg" alt="Milk Tea" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🧋 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Milk Tea</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Teh hitam + susu kental manis</p>
+              <span class="mc-price">Rp 10.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 9: Lychee Tea ── -->
+          <article class="menu-card" data-category="non-coffee" role="button" tabindex="0"
+            aria-label="Lychee Tea - Rp 12.000"
+            data-name="Lychee Tea"
+            data-price="Rp 12.000"
+            data-rating="4.9"
+            data-badge="🍈 Iced"
+            data-desc="Teh dengan rasa leci segar, manis alami & wangi. Menyegarkan di cuaca panas."
+            data-img="leci.jpg">
+            <div class="mc-img">
+              <img src="leci.jpg" alt="Lychee Tea" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍈 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Lychee Tea</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Teh rasa leci segar</p>
+              <span class="mc-price">Rp 12.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 10: Mango Squash ── -->
+          <article class="menu-card" data-category="non-coffee" role="button" tabindex="0"
+            aria-label="Mango Squash - Rp 12.000"
+            data-name="Mango Squash"
+            data-price="Rp 12.000"
+            data-rating="4.8"
+            data-badge="🥭 Iced"
+            data-desc="Jus mangga segar dengan sirup, manis & creamy. Buah mangga pilihan."
+            data-img="mango squash-620.jpg">
+            <div class="mc-img">
+              <img src="mango squash-620.jpg" alt="Mango Squash" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🥭 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Mango Squash</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Jus mangga segar</p>
+              <span class="mc-price">Rp 12.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 11: Strawberry Squash ── -->
+          <article class="menu-card" data-category="non-coffee" role="button" tabindex="0"
+            aria-label="Strawberry Squash - Rp 15.000"
+            data-name="Strawberry Squash"
+            data-price="Rp 15.000"
+            data-rating="4.9"
+            data-badge="🍓 Iced"
+            data-desc="Jus stroberi segar, manis asam menyegarkan. Stroberi pilihan berkualitas."
+            data-img="Strawberry-Squash-400x400.webp">
+            <div class="mc-img">
+              <img src="Strawberry-Squash-400x400.webp" alt="Strawberry Squash" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍓 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Strawberry Squash</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Jus stroberi segar</p>
+              <span class="mc-price">Rp 15.000</span>
+            </div>
+          </article>
+
+          <!-- ========== 🥤 MILKSHAKE ========== -->
+
+          <!-- ── KARTU 12: Chocolate Milkshake ── -->
+          <article class="menu-card" data-category="milkshake" role="button" tabindex="0"
+            aria-label="Chocolate Milkshake - Rp 16.000"
+            data-name="Chocolate Milkshake"
+            data-price="Rp 16.000"
+            data-rating="4.8"
+            data-badge="🍫 Hot/Ice"
+            data-desc="Milkshake cokelat premium, creamy & manis. Bisa disajikan hangat atau dingin."
+            data-img="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80" alt="Chocolate Milkshake" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍫 Hot/Ice</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Chocolate Milkshake</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Milkshake cokelat premium</p>
+              <span class="mc-price">Rp 16.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 13: Red Velvet ── -->
+          <article class="menu-card" data-category="milkshake" role="button" tabindex="0"
+            aria-label="Red Velvet - Rp 16.000"
+            data-name="Red Velvet"
+            data-price="Rp 16.000"
+            data-rating="4.7"
+            data-badge="❤️ Hot/Ice"
+            data-desc="Milkshake red velvet, lembut & manis khas. Warna merah menggoda."
+            data-img="red velvet.webp">
+            <div class="mc-img">
+              <img src="red velvet.webp" alt="Red Velvet" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">❤️ Hot/Ice</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Red Velvet</h4><span class="mc-star">⭐ 4.7</span></div>
+              <p>Milkshake red velvet</p>
+              <span class="mc-price">Rp 16.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 14: Taro Milkshake ── -->
+          <article class="menu-card" data-category="milkshake" role="button" tabindex="0"
+            aria-label="Taro Milkshake - Rp 18.000"
+            data-name="Taro Milkshake"
+            data-price="Rp 18.000"
+            data-rating="4.8"
+            data-badge="💜 Hot/Ice"
+            data-desc="Milkshake taro, creamy dengan aroma khas talas yang harum."
+            data-img="taro.jpg">
+            <div class="mc-img">
+              <img src="taro.jpg" alt="Taro Milkshake" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">💜 Hot/Ice</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Taro Milkshake</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Milkshake taro creamy</p>
+              <span class="mc-price">Rp 18.000</span>
+            </div>
+          </article>
+
+          <!-- ========== 🍪 COOKIES & CREAM ========== -->
+
+          <!-- ── KARTU 15: Three Berry ── -->
+          <article class="menu-card" data-category="cookies-cream" role="button" tabindex="0"
+            aria-label="Three Berry - Rp 18.000"
+            data-name="Three Berry"
+            data-price="Rp 18.000"
+            data-rating="4.9"
+            data-badge="🫐 Iced"
+            data-desc="Perpaduan 3 berry segar dengan creamy base. Stroberi, blueberry, raspberry."
+            data-img="Berries-Cottage-Cheese-Ice-Cream-18-e1738706579298.jpg">
+            <div class="mc-img">
+              <img src="Berries-Cottage-Cheese-Ice-Cream-18-e1738706579298.jpg" alt="Three Berry" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🫐 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Three Berry</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>3 berry segar + creamy</p>
+              <span class="mc-price">Rp 18.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 16: Choco Beng-Beng ── -->
+          <article class="menu-card" data-category="cookies-cream" role="button" tabindex="0"
+            aria-label="Choco Beng-Beng - Rp 18.000"
+            data-name="Choco Beng-Beng"
+            data-price="Rp 18.000"
+            data-rating="4.9"
+            data-badge="🍫 Iced"
+            data-desc="Minuman cokelat dengan topping beng-beng crunchy. Favorit anak muda!"
+            data-img="bngbng.jpg">
+            <div class="mc-img">
+              <img src="bngbng.jpg" alt="Choco Beng-Beng" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍫 Iced</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Choco Beng-Beng</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Cokelat + topping beng-beng</p>
+              <span class="mc-price">Rp 18.000</span>
+            </div>
+          </article>
+
+          <!-- ========== 🍟 SNACK ========== -->
+
+          <!-- ── KARTU 17: Pisang Crispy ── -->
+          <article class="menu-card" data-category="snack" role="button" tabindex="0"
+            aria-label="Pisang Crispy - Rp 15.000"
+            data-name="Pisang Crispy"
+            data-price="Rp 15.000"
+            data-rating="4.8"
+            data-badge="🍌 Crispy"
+            data-desc="Pisang goreng crispy dengan topping keju & cokelat. Renyah di luar, lembut di dalam."
+            data-img="gedang goreng.webp">
+            <div class="mc-img">
+              <img src="gedang goreng.webp" alt="Pisang Crispy" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍌 Crispy</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Pisang Crispy</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Pisang goreng crispy + keju cokelat</p>
+              <span class="mc-price">Rp 15.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 18: Tahu Crispy ── -->
+          <article class="menu-card" data-category="snack" role="button" tabindex="0"
+            aria-label="Tahu Crispy - Rp 10.000"
+            data-name="Tahu Crispy"
+            data-price="Rp 10.000"
+            data-rating="4.7"
+            data-badge="🍢 Crispy"
+            data-desc="Tahu goreng crispy, renyah di luar lembut di dalam. Disajikan dengan sambal."
+            data-img="tahu.jpg">
+            <div class="mc-img">
+              <img src="tahu.jpg" alt="Tahu Crispy" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍢 Crispy</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Tahu Crispy</h4><span class="mc-star">⭐ 4.7</span></div>
+              <p>Tahu goreng crispy + sambal</p>
+              <span class="mc-price">Rp 10.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 19: Dimsum ── -->
+          <article class="menu-card" data-category="snack" role="button" tabindex="0"
+            aria-label="Dimsum - Rp 12.000"
+            data-name="Dimsum"
+            data-price="Rp 12.000"
+            data-rating="4.8"
+            data-badge="🥟 Steamed"
+            data-desc="Dimsum ayam udang, lembut & gurih. Disajikan dengan saus pedas manis."
+            data-img="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=80" alt="Dimsum" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🥟 Steamed</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Dimsum</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Dimsum ayam udang + saus</p>
+              <span class="mc-price">Rp 12.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 20: Mendoan ── -->
+          <article class="menu-card" data-category="snack" role="button" tabindex="0"
+            aria-label="Mendoan - Rp 10.000"
+            data-name="Mendoan"
+            data-price="Rp 10.000"
+            data-rating="4.7"
+            data-badge="🍘 Crispy"
+            data-desc="Tempe mendoan khas Banyumas, gurih & lembut. Disajikan dengan sambal kecap."
+            data-img="mendoan.avif">
+            <div class="mc-img">
+              <img src="mendoan.avif" alt="Mendoan" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍘 Crispy</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Mendoan</h4><span class="mc-star">⭐ 4.7</span></div>
+              <p>Tempe mendoan gurih + sambal</p>
+              <span class="mc-price">Rp 10.000</span>
+            </div>
+          </article>
+
+          <!-- ========== 🍚 FOOD ========== -->
+
+          <!-- ── KARTU 21: Nasi Goreng ── -->
+          <article class="menu-card" data-category="food" role="button" tabindex="0"
+            aria-label="Nasi Goreng - Rp 15.000"
+            data-name="Nasi Goreng"
+            data-price="Rp 15.000"
+            data-rating="4.8"
+            data-badge="🍳 Spesial"
+            data-desc="Nasi goreng dengan telur, ayam suwir & kerupuk. Bumbu rahasia keluarga."
+            data-img="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" alt="Nasi Goreng" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍳 Spesial</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Nasi Goreng</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Nasi goreng + telur + ayam</p>
+              <span class="mc-price">Rp 15.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 22: Nasi Ayam Geprek ── -->
+          <article class="menu-card" data-category="food" role="button" tabindex="0"
+            aria-label="Nasi Ayam Geprek - Rp 15.000"
+            data-name="Nasi Ayam Geprek"
+            data-price="Rp 15.000"
+            data-rating="4.9"
+            data-badge="🌶️ Pedas"
+            data-desc="Ayam geprek crispy sambal bawang + nasi hangat. Level pedas bisa dipilih."
+            data-img="geprek.jpg">
+            <div class="mc-img">
+              <img src="geprek.jpg" alt="Ayam Geprek" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🌶️ Pedas</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Nasi Ayam Geprek</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Ayam geprek crispy + sambal bawang</p>
+              <span class="mc-price">Rp 15.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 23: Ayam Bakar ── -->
+          <article class="menu-card" data-category="food" role="button" tabindex="0"
+            aria-label="Ayam Bakar - Rp 23.000"
+            data-name="Ayam Bakar"
+            data-price="Rp 23.000"
+            data-rating="4.8"
+            data-badge="🔥 Bakar"
+            data-desc="Ayam bakar madu, disajikan dengan lalapan & sambal. Bumbu meresap sempurna."
+            data-img="ayam bkr madu.jpg">
+            <div class="mc-img">
+              <img src="ayam bkr madu.jpg" alt="Ayam Bakar" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🔥 Bakar</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Ayam Bakar</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Ayam bakar madu + lalapan</p>
+              <span class="mc-price">Rp 23.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 24: Rawon ── -->
+          <article class="menu-card" data-category="food" role="button" tabindex="0"
+            aria-label="Rawon - Rp 20.000"
+            data-name="Rawon"
+            data-price="Rp 20.000"
+            data-rating="4.9"
+            data-badge="🍲 Khas"
+            data-desc="Rawon daging sapi dengan kuah kluwek, telur asin & sambal. Khas Jawa Timur."
+            data-img="rawon.jpg">
+            <div class="mc-img">
+              <img src="rawon.jpg" alt="Rawon" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍲 Khas</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Rawon</h4><span class="mc-star">⭐ 4.9</span></div>
+              <p>Rawon daging + telur asin</p>
+              <span class="mc-price">Rp 20.000</span>
+            </div>
+          </article>
+
+          <!-- ── KARTU 25: Bakmi Goreng ── -->
+          <article class="menu-card" data-category="food" role="button" tabindex="0"
+            aria-label="Bakmi Goreng - Rp 18.000"
+            data-name="Bakmi Goreng"
+            data-price="Rp 18.000"
+            data-rating="4.8"
+            data-badge="🍜 Goreng"
+            data-desc="Bakmi goreng Jawa dengan ayam, sayur & kerupuk. Bisa request level pedas."
+            data-img="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=800&q=85">
+            <div class="mc-img">
+              <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=600&q=80" alt="Bakmi Goreng" loading="lazy" />
+              <div class="mc-overlay"><span>Lihat Detail →</span></div>
+              <span class="mc-type">🍜 Goreng</span>
+            </div>
+            <div class="mc-body">
+              <div class="mc-row"><h4>Bakmi Goreng</h4><span class="mc-star">⭐ 4.8</span></div>
+              <p>Bakmi goreng Jawa + ayam</p>
+              <span class="mc-price">Rp 18.000</span>
+            </div>
+          </article>
+
+        </div><!-- /carousel-track -->
+      </div><!-- /carousel-viewport -->
+
+  </div>
+</div><!-- /carousel-track -->
+</div><!-- /carousel-viewport -->
+</div>
+
+<!-- Tombol dan dots BERSAMA di bawah (CUKUP SEKALI) -->
+<div class="car-nav-bottom">
+  <button class="car-btn car-btn--prev" id="carPrev">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M15 18 9 12l6-6"/>
+    </svg>
+  </button>
+
+  <div class="car-dots-wrap">
+    <div class="car-dots" id="carDots" role="tablist"></div>
+  </div>
+
+  <button class="car-btn car-btn--next" id="carNext">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M9 6l6 6-6 6"/>
+    </svg>
+  </button>
+</div>
+
+</section>
+
+  <!-- ============================================================
+       HARGA — 3 paket bundling
+  ============================================================ -->
+  <section class="section harga" id="harga" aria-labelledby="ttl-harga">
+    <div class="container">
+      <header class="section-header reveal" data-dir="up">
+        <span class="section-pill section-pill--light">Paket Kami</span>
+        <h2 class="section-heading section-heading--light" id="ttl-harga">
+          Pilih Paket <em>Favoritmu</em>
+        </h2>
+        <p class="section-sub section-sub--light">Hemat lebih banyak dengan bundling eksklusif kami</p>
+      </header>
+
+      <div class="pricing-grid">
+
+        <!-- Paket Hemat -->
+        <div class="price-card reveal" data-dir="up" style="--pi:0">
+          <div class="price-card-top">
+            <span class="price-icon" aria-hidden="true">🌿</span>
+            <h3>Paket Hemat</h3>
+            <p>Cocok untuk solo ngopi</p>
+          </div>
+          <div class="price-val">
+            <span class="price-idr">Rp</span>
+            <span class="price-num">45.000</span>
+          </div>
+          <ul class="price-features">
+            <li class="yes">1 Minuman pilihan</li>
+            <li class="yes">1 Snack ringan</li>
+            <li class="yes">WiFi gratis 3 jam</li>
+            <li class="yes">Free refill air mineral</li>
+            <li class="no">Parking gratis</li>
+          </ul>
+          <!-- Link WA dengan pesan otomatis terisi nama paket -->
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20Paket%20Hemat%20(Rp%2045.000).%20Apakah%20tersedia%3F"
+             target="_blank" rel="noopener" class="btn btn-price-outline">Pilih Paket</a>
+        </div>
+
+        <!-- Paket Nongkrong (FEATURED — paling populer) -->
+        <div class="price-card price-card--hot reveal" data-dir="up" style="--pi:1">
+          <div class="price-hot-badge">⭐ Terpopuler</div>
+          <div class="price-card-top">
+            <span class="price-icon" aria-hidden="true">☕</span>
+            <h3>Paket Nongkrong</h3>
+            <p>Untuk hangout 2–3 orang</p>
+          </div>
+          <div class="price-val">
+            <span class="price-idr">Rp</span>
+            <span class="price-num">120.000</span>
+          </div>
+          <ul class="price-features">
+            <li class="yes">3 Minuman pilihan</li>
+            <li class="yes">2 Snack premium</li>
+            <li class="yes">WiFi gratis seharian</li>
+            <li class="yes">Free refill air mineral</li>
+            <li class="yes">Parking gratis</li>
+          </ul>
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20Paket%20Nongkrong%20(Rp%20120.000).%20Apakah%20tersedia%3F"
+             target="_blank" rel="noopener" class="btn btn-price-solid">Pilih Paket</a>
+        </div>
+
+        <!-- Paket Gathering -->
+        <div class="price-card reveal" data-dir="up" style="--pi:2">
+          <div class="price-card-top">
+            <span class="price-icon" aria-hidden="true">🎉</span>
+            <h3>Paket Gathering</h3>
+            <p>Untuk event &amp; arisan</p>
+          </div>
+          <div class="price-val">
+            <span class="price-idr">Rp</span>
+            <span class="price-num">350.000</span>
+          </div>
+          <ul class="price-features">
+            <li class="yes">10 Minuman bebas pilih</li>
+            <li class="yes">5 Snack premium</li>
+            <li class="yes">Ruangan private 4 jam</li>
+            <li class="yes">Proyektor + screen</li>
+            <li class="yes">Dokumentasi foto gratis</li>
+          </ul>
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20Paket%20Gathering%20(Rp%20350.000).%20Kapan%20bisa%20reservasi%3F"
+             target="_blank" rel="noopener" class="btn btn-price-outline">Pilih Paket</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       COUNTER STATISTIK — Angka naik otomatis saat terlihat
+       ★ KARTU "CABANG AKTIF" BISA DIKLIK → modal muncul
+  ============================================================ -->
+  <section class="counter-section" id="counter" aria-label="Statistik Kopi Kopen">
+    <div class="container">
+      <div class="counter-grid">
+
+        <!-- Pelanggan Bahagia -->
+        <div class="counter-cell reveal" data-dir="up" style="--ci:0">
+          <div class="counter-emoji" aria-hidden="true">
+            <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="28" fill="#E8F5E9"/>
+              <circle cx="28" cy="24" r="10" fill="#A5D6A7" stroke="#2E7D32" stroke-width="1.5"/>
+              <circle cx="24" cy="22" r="2" fill="#1B5E20"/>
+              <circle cx="32" cy="22" r="2" fill="#1B5E20"/>
+              <path d="M23 27c1 2.5 7 2.5 8 0" stroke="#1B5E20" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 44c0-6.627 5.373-12 12-12s12 5.373 12 12" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="counter-val">
+            <span class="cnum" data-to="5200">0</span>
+            <span class="csuf">+</span>
+          </div>
+          <p>Pelanggan Bahagia</p>
+        </div>
+
+        <!-- Varian Menu -->
+        <div class="counter-cell reveal" data-dir="up" style="--ci:1">
+          <div class="counter-emoji" aria-hidden="true">
+            <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="28" fill="#EFEBE9"/>
+              <!-- Cangkir kopi -->
+              <rect x="16" y="20" width="20" height="18" rx="4" fill="#6D4C41" stroke="#4E342E" stroke-width="1.5"/>
+              <path d="M36 24h3a3 3 0 010 6h-3" stroke="#4E342E" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M21 20c0-2 2-4 4-3" stroke="#795548" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M27 20c0-2 2-4 4-3" stroke="#795548" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="14" y="38" width="24" height="2.5" rx="1.25" fill="#4E342E"/>
+              <!-- liquid -->
+              <path d="M16 30h20" stroke="#D7CCC8" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="counter-val">
+            <span class="cnum" data-to="35">0</span>
+            <span class="csuf">+</span>
+          </div>
+          <p>Varian Menu</p>
+        </div>
+
+        <!-- ★ CABANG AKTIF — BISA DIKLIK -->
+        <div class="counter-cell counter-cell--clickable reveal" data-dir="up" style="--ci:2"
+             role="button" tabindex="0"
+             onclick="openBranchModal()"
+             onkeydown="if(event.key==='Enter'||event.key===' '){openBranchModal()}"
+             title="Klik untuk lihat lokasi cabang"
+             aria-haspopup="dialog" aria-label="4 Cabang Aktif - klik untuk lihat lokasi">
+          <div class="counter-emoji" aria-hidden="true">
+            <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="28" fill="#E8F5E9"/>
+              <!-- Bangunan/toko -->
+              <rect x="12" y="24" width="32" height="20" rx="2" fill="#A5D6A7" stroke="#2E7D32" stroke-width="1.5"/>
+              <path d="M10 26L28 14l18 12" fill="#C8E6C9" stroke="#2E7D32" stroke-width="1.5" stroke-linejoin="round"/>
+              <!-- Pintu -->
+              <rect x="23" y="32" width="10" height="12" rx="1.5" fill="#fff" stroke="#2E7D32" stroke-width="1.2"/>
+              <circle cx="31" cy="38" r="1" fill="#1B5E20"/>
+              <!-- Jendela -->
+              <rect x="14" y="28" width="8" height="6" rx="1" fill="#fff" stroke="#2E7D32" stroke-width="1"/>
+              <rect x="34" y="28" width="8" height="6" rx="1" fill="#fff" stroke="#2E7D32" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="counter-val">
+            <span class="cnum" data-to="4">0</span>
+            <span class="csuf"></span>
+          </div>
+          <p>Cabang Aktif</p>
+          <span class="click-hint">Lihat Lokasi →</span>
+        </div>
+
+        <!-- Penghargaan -->
+        <div class="counter-cell reveal" data-dir="up" style="--ci:3">
+          <div class="counter-emoji" aria-hidden="true">
+            <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="28" fill="#FFF8E1"/>
+              <!-- Piala -->
+              <path d="M20 14h16v10a8 8 0 01-16 0V14z" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M14 16h6M36 16h6" stroke="#F9A825" stroke-width="2" stroke-linecap="round"/>
+              <path d="M14 16a6 6 0 006 6M42 16a6 6 0 01-6 6" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="24" y="30" width="8" height="6" rx="1" fill="#FFD54F" stroke="#F9A825" stroke-width="1.2"/>
+              <rect x="19" y="36" width="18" height="3.5" rx="1.75" fill="#F9A825"/>
+              <!-- Bintang di piala -->
+              <path d="M28 18l1.2 2.6 2.8.4-2 2 .5 2.8L28 24.2l-2.5 1.6.5-2.8-2-2 2.8-.4z" fill="#FFF8E1"/>
+            </svg>
+          </div>
+          <div class="counter-val">
+            <span class="cnum" data-to="12">0</span>
+            <span class="csuf">+</span>
+          </div>
+          <p>Penghargaan</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PENGHARGAAN — Showcase prestasi & sertifikasi
+       Desain: Timeline/magazine layout premium dengan foto latar,
+               kartu besar featured + grid kartu kecil
+  ============================================================ -->
+  <section class="penghargaan" id="penghargaan" aria-labelledby="ttl-penghargaan">
+
+    <!-- ── HEADER SECTION dengan latar gelap bergambar ── -->
+    <div class="award-hero">
+      <div class="award-hero-bg" aria-hidden="true"></div>
+      <div class="award-hero-overlay" aria-hidden="true"></div>
+      <div class="container award-hero-content">
+        <span class="section-pill section-pill--light reveal" data-dir="up">Prestasi Kami</span>
+        <h2 class="section-heading section-heading--light" id="ttl-penghargaan">
+          Penghargaan &amp; <em>Pengakuan</em>
+        </h2>
+        <p class="section-sub section-sub--light">
+          Setiap cangkir yang kami sajikan membawa semangat untuk terus meraih yang terbaik
+        </p>
+        <!-- Stats penghargaan mini -->
+        <div class="award-hero-stats">
+          <div class="aw-stat">
+            <span class="aw-stat-num">12+</span>
+            <span class="aw-stat-lbl">Penghargaan</span>
+          </div>
+          <div class="aw-stat-sep"></div>
+          <div class="aw-stat">
+            <span class="aw-stat-num">5</span>
+            <span class="aw-stat-lbl">Tahun Berturut</span>
+          </div>
+          <div class="aw-stat-sep"></div>
+          <div class="aw-stat">
+            <span class="aw-stat-num">3</span>
+            <span class="aw-stat-lbl">Level Nasional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BODY PENGHARGAAN ── -->
+    <div class="award-body">
+      <div class="container">
+
+        <!-- FEATURED AWARD — kartu besar di tengah -->
+        <div class="award-featured reveal" data-dir="up">
+          <div class="award-featured-ribbon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            Penghargaan Utama 2023
+          </div>
+          <div class="award-featured-inner">
+            <!-- Visual piala SVG besar -->
+            <div class="award-featured-trophy" aria-hidden="true">
+              <svg viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cup body -->
+                <path d="M30 10h60v45a30 30 0 01-60 0V10z" fill="url(#trophyGrad)" stroke="#C8A000" stroke-width="2"/>
+                <!-- Handles -->
+                <path d="M10 20h20M90 20h20" stroke="#C8A000" stroke-width="3" stroke-linecap="round"/>
+                <path d="M10 20a20 20 0 0020 20M110 20a20 20 0 01-20 20" stroke="#C8A000" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Stem -->
+                <rect x="52" y="80" width="16" height="25" rx="3" fill="#D4A843"/>
+                <!-- Base -->
+                <rect x="35" y="105" width="50" height="10" rx="5" fill="#D4A843"/>
+                <rect x="30" y="113" width="60" height="8" rx="4" fill="#B8860B"/>
+                <!-- Star on cup -->
+                <path d="M60 25l3 8h8l-6.5 4.7 2.5 8L60 41l-7 4.7 2.5-8L49 33h8z" fill="#FFF8E1" opacity="0.9"/>
+                <!-- Shine -->
+                <path d="M35 20c5-8 20-12 25-5" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+                <defs>
+                  <linearGradient id="trophyGrad" x1="30" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#FFD700"/>
+                    <stop offset="50%" stop-color="#D4A843"/>
+                    <stop offset="100%" stop-color="#B8860B"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <!-- Teks featured award -->
+            <div class="award-featured-text">
+              <div class="award-featured-year">2023</div>
+              <h3>Best Coffee Shop</h3>
+              <p class="award-featured-org">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+                Majalah Kuliner Indonesia
+              </p>
+              <p class="award-featured-desc">
+                Dinobatkan sebagai kedai kopi terbaik se-Jawa Timur atas konsistensi
+                kualitas biji kopi, pengalaman pelanggan yang luar biasa, dan inovasi
+                menu yang terus menghadirkan kejutan bagi pecinta kopi.
+              </p>
+              <!-- Cuplikan review -->
+              <blockquote class="award-featured-quote">
+                "Kopi Kopen menetapkan standar baru dalam industri kedai kopi UMKM
+                Indonesia — dari kualitas biji hingga pengalaman berkesan."
+                <cite>— Editor Majalah Kuliner Indonesia</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIMELINE PENGHARGAAN — kartu-kartu dengan garis waktu -->
+        <div class="award-timeline">
+
+          <!-- Item kiri -->
+          <div class="awt-item awt-item--left reveal" data-dir="left">
+            <div class="awt-card">
+              <div class="awt-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#FFF9C4"/>
+                  <!-- Medali emas -->
+                  <circle cx="24" cy="22" r="10" fill="#FFD700" stroke="#F9A825" stroke-width="1.5"/>
+                  <circle cx="24" cy="22" r="7" fill="#FFE082" stroke="#F9A825" stroke-width="1"/>
+                  <path d="M24 17l1.5 4h4l-3.2 2.3 1.2 4L24 25l-3.5 2.3 1.2-4L18.5 21h4z" fill="#F9A825"/>
+                  <path d="M20 10h8l-2 6h-4z" fill="#FFD700" stroke="#F9A825" stroke-width="1"/>
+                  <rect x="22" y="32" width="4" height="6" rx="1" fill="#FFD700"/>
+                  <circle cx="24" cy="38.5" r="2" fill="#F9A825"/>
+                </svg>
+              </div>
+              <div class="awt-content">
+                <span class="awt-year">2023</span>
+                <h4>Top Barista Jawa Timur</h4>
+                <p class="awt-org">Specialty Coffee Association Indonesia (SCAI)</p>
+                <p class="awt-desc">Barista kepala kami meraih juara pertama dalam kompetisi latte art dan brewing nasional.</p>
+              </div>
+            </div>
+            <div class="awt-dot" aria-hidden="true">
+              <div class="awt-dot-inner"></div>
+            </div>
+          </div>
+
+          <!-- Item kanan -->
+          <div class="awt-item awt-item--right reveal" data-dir="right">
+            <div class="awt-dot" aria-hidden="true">
+              <div class="awt-dot-inner"></div>
+            </div>
+            <div class="awt-card">
+              <div class="awt-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#E8F5E9"/>
+                  <!-- Bintang rating -->
+                  <path d="M24 10l3.5 10.7h11.3l-9.1 6.6 3.5 10.7L24 31.4l-9.2 6.6 3.5-10.7L9.2 20.7h11.3z" fill="#4CAF50" stroke="#2E7D32" stroke-width="1.2"/>
+                  <!-- "4.9" kecil di tengah -->
+                  <text x="24" y="26" text-anchor="middle" font-size="8" font-weight="700" fill="#fff" font-family="Poppins,sans-serif">4.9</text>
+                </svg>
+              </div>
+              <div class="awt-content">
+                <span class="awt-year">2022</span>
+                <h4>Rating 4.9 Terbaik</h4>
+                <p class="awt-org">Google Maps &amp; TripAdvisor</p>
+                <p class="awt-desc">Mempertahankan rating 4.9/5 dari lebih 3.000 ulasan nyata selama dua tahun berturut.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item kiri -->
+          <div class="awt-item awt-item--left reveal" data-dir="left">
+            <div class="awt-card">
+              <div class="awt-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#E8F5E9"/>
+                  <!-- Daun eco -->
+                  <path d="M24 38C24 38 12 32 12 20C12 10 20 6 30 10C38 13 40 22 34 30C30 36 24 38 24 38Z" fill="#A5D6A7" stroke="#2E7D32" stroke-width="1.5"/>
+                  <path d="M24 38C20 34 16 26 18 20" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M24 38C28 30 34 22 30 14" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 2.5"/>
+                  <!-- Daur ulang simbol kecil -->
+                  <circle cx="32" cy="14" r="4" fill="#fff" stroke="#2E7D32" stroke-width="1.2"/>
+                  <path d="M30 14h4" stroke="#2E7D32" stroke-width="1" stroke-linecap="round"/>
+                  <path d="M32 12v4" stroke="#2E7D32" stroke-width="1" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="awt-content">
+                <span class="awt-year">2022</span>
+                <h4>Green Business Award</h4>
+                <p class="awt-org">Dinas Lingkungan Hidup Jawa Timur</p>
+                <p class="awt-desc">Penghargaan atas komitmen kemasan ramah lingkungan dan program daur ulang ampas kopi menjadi pupuk organik.</p>
+              </div>
+            </div>
+            <div class="awt-dot" aria-hidden="true">
+              <div class="awt-dot-inner"></div>
+            </div>
+          </div>
+
+          <!-- Item kanan -->
+          <div class="awt-item awt-item--right reveal" data-dir="right">
+            <div class="awt-dot" aria-hidden="true">
+              <div class="awt-dot-inner"></div>
+            </div>
+            <div class="awt-card">
+              <div class="awt-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#E3F2FD"/>
+                  <!-- Jabat tangan / UMKM -->
+                  <path d="M10 28c0 0 4-6 8-6h4l4 4 4-4h4c4 0 8 6 8 6" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <path d="M14 28v6a2 2 0 002 2h16a2 2 0 002-2v-6" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                  <!-- Tangan berjabat -->
+                  <path d="M20 24l4 4 4-4" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <circle cx="24" cy="17" r="4" fill="#90CAF9" stroke="#1565C0" stroke-width="1.2"/>
+                </svg>
+              </div>
+              <div class="awt-content">
+                <span class="awt-year">2021</span>
+                <h4>UMKM Terbaik Jatim</h4>
+                <p class="awt-org">Dinas Koperasi &amp; UKM Jawa Timur</p>
+                <p class="awt-desc">Mewakili Jawa Timur dalam pameran UMKM nasional di Jakarta sebagai binaan terbaik kuliner inovatif.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item kiri -->
+          <div class="awt-item awt-item--left reveal" data-dir="left">
+            <div class="awt-card">
+              <div class="awt-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#FFF3E0"/>
+                  <!-- Sertifikat/scroll -->
+                  <rect x="10" y="12" width="28" height="22" rx="3" fill="#fff" stroke="#E65100" stroke-width="1.5"/>
+                  <path d="M15 18h18M15 22h14M15 26h10" stroke="#FF8F00" stroke-width="1.5" stroke-linecap="round"/>
+                  <!-- Pita -->
+                  <path d="M22 34l2 4 2-4" fill="#FF8F00" stroke="#E65100" stroke-width="1" stroke-linejoin="round"/>
+                  <!-- Stempel bulat -->
+                  <circle cx="34" cy="30" r="5" fill="#FF8F00" stroke="#E65100" stroke-width="1.2"/>
+                  <path d="M32 30l1.5 1.5 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="awt-content">
+                <span class="awt-year">2020</span>
+                <h4>Sertifikasi SCAI Level 3</h4>
+                <p class="awt-org">Specialty Coffee Association Indonesia</p>
+                <p class="awt-desc">Seluruh barista meraih sertifikasi SCAI Level 3 — standar tertinggi keahlian penyeduhan kopi specialty di Indonesia.</p>
+              </div>
+            </div>
+            <div class="awt-dot" aria-hidden="true">
+              <div class="awt-dot-inner"></div>
+            </div>
+          </div>
+
+        </div><!-- /award-timeline -->
+
+        <!-- PARTNER / DIAKUI OLEH -->
+        <div class="award-partners reveal" data-dir="up">
+          <p class="award-partners-label">Diakui &amp; Dipercaya Oleh</p>
+          <div class="award-partners-row">
+            <div class="ap-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+              Majalah Kuliner Indonesia
+            </div>
+            <div class="ap-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+              SCAI Indonesia
+            </div>
+            <div class="ap-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+              Google Maps 4.9★
+            </div>
+            <div class="ap-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+              Dinas LH Jatim
+            </div>
+            <div class="ap-chip">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10 2l2 6h6l-5 3.6 1.9 5.8L10 14l-4.9 3.4 1.9-5.8L2 8h6z"/></svg>
+              Dinas Koperasi Jatim
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       KONTAK — Info & form pesan
+  ============================================================ -->
+  <section class="section kontak" id="kontak" aria-labelledby="ttl-kontak">
+    <div class="container">
+      <div class="kontak-grid">
+
+        <!-- INFO KONTAK (kiri) -->
+        <div class="kontak-info reveal" data-dir="left">
+          <span class="section-pill">Hubungi Kami</span>
+          <h2 class="section-heading" id="ttl-kontak">
+            Kami Siap <em>Melayani</em> Anda
+          </h2>
+          <p class="kontak-desc">
+            Punya pertanyaan, ingin reservasi, atau sekadar ingin ngobrol soal kopi?
+            Jangan ragu menghubungi kami kapan saja!
+          </p>
+
+          <!-- Detail kontak -->
+          <address class="kontak-details">
+            <div class="kd-item">
+              <div class="kd-icon" aria-hidden="true">📍</div>
+              <div>
+                <strong>Alamat Pusat</strong>
+                <p>Jalan Raya Becirongengor RT.4/RW.2, Beciro, Becirongengor, Kec. Wonoayu, Jawa Timur</p>
+              </div>
+            </div>
+            <div class="kd-item">
+              <div class="kd-icon" aria-hidden="true">📞</div>
+              <div>
+                <strong>WhatsApp</strong>
+                <!-- ★ Nomor WA bisa langsung diklik/tap di mobile -->
+                <p><a href="https://wa.me/6281234944443" target="_blank" rel="noopener">+62 812-3494-4443</a></p>
+              </div>
+            </div>
+            <div class="kd-item">
+              <div class="kd-icon" aria-hidden="true">🕐</div>
+              <div>
+                <strong>Jam Buka</strong>
+                <p>Setiap Hari — 07.00 s/d 01.00 WIB</p>
+              </div>
+            </div>
+            <div class="kd-item">
+              <div class="kd-icon" aria-hidden="true">📧</div>
+              <div>
+                <strong>Email</strong>
+                <p><a href="isa.mansur24@gmail.com"><span class="__cf_email__" data-cfemail="isa.mansur24@gmail.com">[email&#160;protected]</span></a></p>
+              </div>
+            </div>
+          </address>
+
+          <!-- Tombol sosial media -->
+          <div class="sosmed-row">
+  <a href="https://www.instagram.com/kopikopen/" class="sosmed-chip" aria-label="Instagram Kopi Kopen" target="_blank" rel="noopener noreferrer">
+    📷 @kopikopen.id
+  </a>
+  
+  <a href="https://www.tiktok.com/@kopikopen" class="sosmed-chip" aria-label="TikTok Kopi Kopen" target="_blank" rel="noopener noreferrer">
+    🎵 @kopikopen
+  </a>
+</div>
+
+
+          <!-- Tombol WhatsApp langsung dari kontak -->
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20bertanya%20tentang%20menu%20dan%20lokasi."
+             target="_blank" rel="noopener" class="btn btn-wa-contact">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="18" height="18" aria-hidden="true">
+              <path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm6.4 17.91c-.35-.18-2.07-1.02-2.39-1.14s-.56-.18-.79.18-.9 1.14-1.11 1.37-.41.26-.76.09-1.48-.54-2.81-1.74c-1.04-.93-1.74-2.07-1.95-2.42-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.61.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.61s-.79-1.91-1.08-2.61c-.29-.69-.57-.6-.79-.6l-.67-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/>
+            </svg>
+            Chat di WhatsApp Sekarang
+          </a>
+        </div>
+
+        <!-- FORM KONTAK (kanan) -->
+        <div class="kontak-form-card reveal" data-dir="right">
+          <h3 class="form-heading">Kirim Pesan ke Kami</h3>
+          <form class="contact-form" id="contactForm" novalidate>
+
+            <!-- Field nama -->
+            <div class="form-field">
+              <label for="f-nama">Nama Lengkap <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="f-nama" name="nama"
+                     placeholder="Masukkan nama Anda"
+                     required autocomplete="name" />
+              <span class="field-err" id="e-nama" role="alert"></span>
+            </div>
+
+            <!-- Field email -->
+            <div class="form-field">
+              <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="f-email" name="email"
+                     placeholder="email@contoh.com"
+                     required autocomplete="email" />
+              <span class="field-err" id="e-email" role="alert"></span>
+            </div>
+
+            <!-- Field telepon (opsional) -->
+            <div class="form-field">
+              <label for="f-telp">
+                Nomor Telepon <span class="optional">(opsional)</span>
+              </label>
+              <input type="tel" id="f-telp" name="telp"
+                     placeholder="+62 812-xxxx-xxxx" autocomplete="tel" />
+            </div>
+
+            <!-- Field pesan -->
+            <div class="form-field">
+              <label for="f-pesan">Pesan <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="f-pesan" name="pesan" rows="4"
+                        placeholder="Tulis pertanyaan, pesanan, atau pesan Anda di sini..."
+                        required></textarea>
+              <span class="field-err" id="e-pesan" role="alert"></span>
+            </div>
+
+            <!-- Tombol kirim -->
+            <button type="submit" class="btn btn-form-submit" id="formBtn">
+              <span id="btnLabel">Kirim Pesan</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+
+            <!-- Pesan sukses setelah form dikirim -->
+            <div class="form-ok" id="formOk" role="status" aria-live="polite">
+              ✅ Pesan berhasil dikirim! Kami akan membalas dalam 1×24 jam. Terima kasih!
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="container footer-cols">
+
+        <!-- Kolom brand -->
+        <div class="fcol fcol-brand">
+          <a href="#home" class="footer-logo" aria-label="Kopi Kopen - Beranda">
+            <div class="logo-img-wrap">
+              <img src="logo_kopi_potong-removebg-preview.png" alt="Logo Kopi Kopen" class="logo-img"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="logo-placeholder" style="background:rgba(255,255,255,.15);color:var(--c-gold-lt)" aria-hidden="true">☕</div>
+            </div>
+            <span class="logo-name" style="color:#fff">Kopi <em>Kopen</em></span>
+          </a>
+          <p>Menghadirkan pengalaman kopi premium dari petani lokal langsung ke cangkir Anda sejak 2014.</p>
+          <!-- WA di footer -->
+          <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!"
+             target="_blank" rel="noopener" class="footer-wa-btn">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm6.4 17.91c-.35-.18-2.07-1.02-2.39-1.14s-.56-.18-.79.18-.9 1.14-1.11 1.37-.41.26-.76.09-1.48-.54-2.81-1.74c-1.04-.93-1.74-2.07-1.95-2.42-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.61.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.61s-.79-1.91-1.08-2.61c-.29-.69-.57-.6-.79-.6l-.67-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+            Chat WhatsApp
+          </a>
+        </div>
+
+        <!-- Kolom navigasi -->
+        <div class="fcol">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#galeri">Menu</a></li>
+            <li><a href="#harga">Harga</a></li>
+            <li><a href="#penghargaan">Penghargaan</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom menu populer -->
+        <div class="fcol">
+          <h4>Menu Populer</h4>
+          <ul>
+            <li><a href="#galeri">Espresso Classico</a></li>
+            <li><a href="#galeri">Iced Brown Sugar</a></li>
+            <li><a href="#galeri">Pour Over Spesial</a></li>
+            <li><a href="#galeri">Cold Brew 12hr</a></li>
+            <li><a href="#galeri">Matcha Fusion</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom sosial media -->
+        <div class="fcol">
+  <h4>Temukan Kami</h4>
+  <ul>
+    <li>
+      <a href="https://www.instagram.com/kopikopen/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        📷 Instagram
+      </a>
+    </li>
+    <li>
+      <a href="https://www.tiktok.com/@teras.sharing5/video/7604086569183530261" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        🎵 TikTok
+      </a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/kopikopen/?locale=id_ID" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        📘 Facebook
+      </a>
+    </li>
+    <li>
+      <a href="https://www.google.com/maps/place/kopi+kopen+beciro+ngengor/data=!4m2!3m1!1s0x2dd7e3b1372c2769:0x7d0199a10787ea18?sa=X&ved=1t:242&ictx=111" target="_blank" rel="noopener noreferrer" aria-label="Google Maps">
+        📍 Google Maps
+      </a>
+    </li>
+  </ul>
+</div>
+
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2014 <strong>Kopi Kopen</strong>. Dibuat dengan ❤️ di Sidoarjo, Jawa Timur.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       FLOATING WHATSAPP BUTTON
+       Selalu terlihat di pojok kanan bawah
+       Klik → buka chat WA langsung
+  ============================================================ -->
+  <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20ingin%20memesan%20kopi.%20Boleh%20minta%20info%20menu%3F"
+     target="_blank" rel="noopener"
+     class="wa-float" id="waFloat"
+     aria-label="Chat WhatsApp - Pesan Sekarang">
+    <!-- Ikon WhatsApp -->
+    <svg viewBox="0 0 32 32" fill="currentColor" width="22" height="22" aria-hidden="true">
+      <path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm6.4 17.91c-.35-.18-2.07-1.02-2.39-1.14s-.56-.18-.79.18-.9 1.14-1.11 1.37-.41.26-.76.09-1.48-.54-2.81-1.74c-1.04-.93-1.74-2.07-1.95-2.42-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.61.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.61s-.79-1.91-1.08-2.61c-.29-.69-.57-.6-.79-.6l-.67-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/>
+    </svg>
+    <span class="wa-label">Pesan Sekarang</span>
+  </a>
+
+
+  <!-- ============================================================
+       MODAL: DETAIL MENU (Lightbox)
+       Dibuka saat klik kartu menu di galeri
+  ============================================================ -->
+  <div class="modal-bg" id="modalBg"
+       role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box" id="modalBox">
+      <!-- Tombol tutup modal -->
+      <button class="modal-close" id="modalClose" aria-label="Tutup modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <!-- Gambar menu (diisi JS) -->
+      <div class="modal-img-wrap">
+        <img id="mImg" src="" alt="" />
+        <div class="modal-badges">
+          <span class="modal-price-badge" id="mPrice"></span>
+          <span class="modal-star-badge" id="mRating"></span>
+        </div>
+      </div>
+      <!-- Konten teks modal -->
+      <div class="modal-content">
+        <span class="modal-type" id="mBadge"></span>
+        <h3 id="modalTitle"></h3>
+        <p id="mDesc"></p>
+        <!-- Tombol pesan WA dari modal — link diisi JS secara dinamis -->
+        <a id="mOrderBtn" href="#" target="_blank" rel="noopener" class="btn btn-wa-modal">
+          <svg viewBox="0 0 32 32" fill="currentColor" width="20" height="20" aria-hidden="true">
+            <path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm6.4 17.91c-.35-.18-2.07-1.02-2.39-1.14s-.56-.18-.79.18-.9 1.14-1.11 1.37-.41.26-.76.09-1.48-.54-2.81-1.74c-1.04-.93-1.74-2.07-1.95-2.42-.2-.35-.02-.54.15-.71.16-.16.35-.41.53-.61.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.61s-.79-1.91-1.08-2.61c-.29-.69-.57-.6-.79-.6l-.67-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/>
+          </svg>
+          Pesan via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MODAL: DAFTAR CABANG
+       Dibuka saat klik kartu "Cabang Aktif" di counter
+  ============================================================ -->
+  <div class="modal-bg" id="branchModalBg"
+       role="dialog" aria-modal="true" aria-labelledby="branchModalTitle">
+    <div class="modal-box branch-modal-box" id="branchModalBox">
+      <!-- Tombol tutup -->
+      <button class="modal-close" id="branchModalClose" aria-label="Tutup modal cabang">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Header modal cabang -->
+      <div class="branch-modal-header">
+        <span class="branch-modal-icon" aria-hidden="true">🏪</span>
+        <h3 id="branchModalTitle">Lokasi Cabang Kami</h3>
+        <p>Temukan Kopi Kopen terdekat dari Anda</p>
+      </div>
+
+      <!-- Daftar cabang
+           ★ Ubah nama, alamat, jam, dan nomor WA sesuai data Anda -->
+      <div class="branch-list">
+
+        <!-- Cabang 1 -->
+        <div class="branch-item">
+          <div class="branch-num" aria-hidden="true">1</div>
+          <div class="branch-info">
+            <h4>Cabang Sidoarjo Pusat <span class="branch-tag">Pusat</span></h4>
+            <p class="branch-addr">📍 Jalan Raya Becirongengor RT.4/RW.2, Beciro, Becirongengor, Kec. Wonoayu, Kabupaten Sidoarjo, Jawa Timur 61261</p>
+            <p class="branch-hours">🕐 Buka Setiap Hari — 07.00 s/d 01.00 WIB</p>
+            <p class="branch-phone">📞 <a href="tel:+6281234944443">+6281234944443</a></p>
+          </div>
+          <!-- Tombol order WA cabang ini -->
+          <a href="https://wa.me/6281234944443?text=Halo!%20Saya%20ingin%20memesan%20di%20Cabang%20Sidoarjo%20Pusat."
+             target="_blank" rel="noopener" class="branch-wa-btn" aria-label="Chat WA Cabang Sidoarjo Pusat">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
+            Chat WA
+          </a>
+        </div>
+
+        <!-- Cabang 2 -->
+        <div class="branch-item">
+          <div class="branch-num" aria-hidden="true">2</div>
+          <div class="branch-info">
+            <h4>Cabang Surabaya Barat</h4>
+            <p class="branch-addr">📍 Jl. Embong Kali, Kemasan, Kec. Krian, Kabupaten Sidoarjo, Jawa Timur 61262</p>
+            <p class="branch-hours">🕐 Buka Setiap Hari — 24 Jam WIB</p>
+            <p class="branch-phone">📞 <a href="tel:+62-856-3486-364">+62-856-3486-364</a></p>
+          </div>
+          <a href="https://wa.me/6281234944443?text=Halo!%20Saya%20ingin%20memesan%20di%20Cabang%20Surabaya%20Barat."
+             target="_blank" rel="noopener" class="branch-wa-btn" aria-label="Chat WA Cabang Krian">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
+            Chat WA
+          </a>
+        </div>
+
+        <!-- Cabang 3 -->
+        <div class="branch-item">
+          <div class="branch-num" aria-hidden="true">3</div>
+          <div class="branch-info">
+            <h4>Cabang Malang Kota</h4>
+            <p class="branch-addr">📍 Jl. Ijen Boulevard No. 88, Malang, Jawa Timur 65117</p>
+            <p class="branch-hours">🕐 Buka Setiap Hari — 07.00 s/d 23.00 WIB</p>
+            <p class="branch-phone">📞 <a href="tel:+62341234567">+62 341-23-4567</a></p>
+          </div>
+          <a href="https://wa.me/6281234944443?text=Halo!%20Saya%20ingin%20memesan%20di%20Cabang%20Malang%20Kota."
+             target="_blank" rel="noopener" class="branch-wa-btn" aria-label="Chat WA Cabang Malang">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
+            Chat WA
+          </a>
+        </div>
+
+        <!-- Cabang 4 -->
+        <div class="branch-item">
+          <div class="branch-num" aria-hidden="true">4</div>
+          <div class="branch-info">
+            <h4>Cabang Mojokerto</h4>
+            <p class="branch-addr">📍 Jl. Gajah Mada No. 22, Mojokerto, Jawa Timur 61321</p>
+            <p class="branch-hours">🕐 Buka Setiap Hari — 08.00 s/d 22.00 WIB</p>
+            <p class="branch-phone">📞 <a href="tel:+623210234567">+62 321-0-23456</a></p>
+          </div>
+          <a href="https://wa.me/6281234944443?text=Halo!%20Saya%20ingin%20memesan%20di%20Cabang%20Mojokerto."
+             target="_blank" rel="noopener" class="branch-wa-btn" aria-label="Chat WA Cabang Mojokerto">
+            <svg viewBox="0 0 32 32" fill="currentColor" width="16" height="16"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
+            Chat WA
+          </a>
+        </div>
+
+      </div><!-- /branch-list -->
+
+      <!-- Tombol WA umum di bawah modal cabang -->
+      <div class="branch-footer">
+        <a href="https://wa.me/6281234944443?text=Halo%20Kopi%20Kopen!%20Saya%20mau%20tanya%20info%20cabang%20terdekat."
+           target="_blank" rel="noopener" class="btn btn-wa-modal" style="max-width:320px;margin:0 auto">
+          <svg viewBox="0 0 32 32" fill="currentColor" width="18" height="18"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.51.66 4.86 1.81 6.9L2 30l7.33-1.78A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
+          Tanya Cabang Terdekat via WA
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Tombol kembali ke atas -->
+  <button class="back-top" id="backTop" aria-label="Kembali ke atas halaman">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Script JS -->
+  <script src="script.js"></script>
+</body>
+</html>
